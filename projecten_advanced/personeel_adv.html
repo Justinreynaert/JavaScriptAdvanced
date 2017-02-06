@@ -31,5 +31,108 @@ table {
 
 
 <div id="output"></div>
+
+<script type="text/javascript">
+    // onload
+    window.onload = function(){
+        var elOutput = document.getElementById('output');
+
+
+    // literal
+        var paul = {
+            naam:"Paul",
+            geslacht:"m",
+            leeftijd:50,
+            geboorteDatum: new Date(1960,9,12),
+            hobbies: ["tennis","zwemmen","videogames"],
+            gehuwd: true,
+            kinderen: [
+                {naam: "Anthony", gewicht: 36, gehuwd:false, geboorteDatum: new Date(1999,1,31)},
+                {naam: "Leen", gewicht: 65, gehuwd: false, geboorteDatum: new Date(1989,11,7)}
+            ],
+            spreek: function(){alert("Hallo, " + this.naam + " hier, ik ben " + this.functie);}
+        };
+
+
+
+
+        // constructor
+        var veerle = new Object();
+        veerle.naam = "Veerle";
+        veerle.geslacht = "v";
+        veerle.gehuwd = true;
+        veerle['functie'] = "secretaresse";
+
+        paul.functie = "webontwikkelaar";
+        // delete paul.naam;
+        // paul.spreek();
+
+
+
+        // instanties
+        var kurt = new Persoon("Kurt", 49, "m");
+        var ann = new Persoon("Ann", 51, "v");
+
+        console.log("ann " + ann.constructor);
+        console.log("paul " + paul.constructor);
+        var inge = new ann.constructor('inge',33,'v');
+        console.log(inge);
+        elOutput.innerHTML = enumerate(ann);
+
+        kurt.hobbies = ["fietsen","reizen"];
+        kurt.kinderen = [];
+        kurt.kinderen[0] = new Persoon("Candide", 21, "v");
+
+
+        kurt.spreek();
+        ann.spreek();
+
+
+        elOutput.innerHTML = enumerate(kurt) + enumerate(ann);
+
+
+
+    };
+
+    function enumerate(obj) {
+        //overloop alle eigenschappen van een object
+        // return string, voor console.log
+
+        var sProps = "<ul>";
+        for (var key in obj) {
+            if (typeof obj[key] === "object") {
+                sProps += "<li>";
+                sProps += key;
+                sProps += enumerate(obj[key]);
+                sProps += "</li>";
+            }
+            else {
+                sProps += "<li>" + key + "(" + typeof obj[key] + "): " + obj[key] + "</li>\n";
+            }
+        }
+
+        sProps += "</ul>\n";
+        return sProps;
+    }
+
+    /*+++++++++++++++++++ CONSTRUCTORS +++++++++++++++++++*/
+
+    /* ++ Persoon Class ++ */
+
+    function Persoon(naam, leeftijd, geslacht) {
+        this.naam = naam;
+        this.leeftijd = leeftijd;
+        this.geslacht = geslacht;
+        this.info = "ik ben " + this.naam + ", " + this.leeftijd + " jaar,\n mijn moedertaal is " + this.moederTaal;
+    }
+
+    // prototype augmentation
+    Persoon.prototype.gehuwd = false;
+    Persoon.prototype.moederTaal = "Nederlands";
+    Persoon.prototype.spreek = function() {
+        alert(this.info);
+    }
+
+</script>
 </body>
 </html>
