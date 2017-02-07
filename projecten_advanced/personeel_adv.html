@@ -37,7 +37,7 @@ table {
     window.onload = function(){
         var elOutput = document.getElementById('output');
 
-
+/*
     // literal
         var paul = {
             naam:"Paul",
@@ -83,12 +83,22 @@ table {
         kurt.kinderen = [];
         kurt.kinderen[0] = new Persoon("Candide", 21, "v");
 
-
+        //kurt.leeftijd = 99;
+        kurt.setLeeftijd(99);
+        ann.moederTaal = "Frans";
         kurt.spreek();
-        ann.spreek();
+        ann.spreek();*/
 
 
-        elOutput.innerHTML = enumerate(kurt) + enumerate(ann);
+       // elOutput.innerHTML = enumerate(kurt) + enumerate(ann);
+
+        var benny = new Cursist("Benny",28,"m",["access","excel"], "Jan");
+        var jean = new Instructeur("Jean", 52, "m", "Cobol", 20);
+        var tom = new Persoon("Tom", 20, "m");
+
+        jean.spreek();
+        benny.spreek();
+        elOutput.innerHTML = enumerate(benny);
 
 
 
@@ -123,15 +133,69 @@ table {
         this.naam = naam;
         this.leeftijd = leeftijd;
         this.geslacht = geslacht;
-        this.info = "ik ben " + this.naam + ", " + this.leeftijd + " jaar,\n mijn moedertaal is " + this.moederTaal;
     }
 
     // prototype augmentation
     Persoon.prototype.gehuwd = false;
     Persoon.prototype.moederTaal = "Nederlands";
+    Persoon.prototype.info = function(){
+            return "Mijn naam is " + this.naam + ", " + this.leeftijd + " jaar" + ", \n mijn moedertaal is " + this.moederTaal;
+    };
     Persoon.prototype.spreek = function() {
-        alert(this.info);
+        alert(this.info());
+    };
+    Persoon.prototype.setLeeftijd = function(leeftijd){
+        if(typeof leeftijd === 'number' && leeftijd > 0 && leeftijd < 120) {
+            this.leeftijd = leeftijd;
+        }
+    };
+
+    /* CURSIST CLASS */
+    function Cursist(naam, leeftijd, geslacht, arrOpl, tutor) {
+        Persoon.call(this, naam, leeftijd, geslacht);
+        this.opleidingen = arrOpl;
+        this.tutor = tutor;
     }
+    Cursist.prototype = new Persoon();
+    Cursist.prototype.opleider = "VDAB";
+    Cursist.prototype.voegOpleidingToe = function(opleiding){
+        this.opleidingen.push(opleiding);
+    };
+
+    Cursist.prototype.spreek = function() {
+
+        var nOpleidingen = this.opleidingen.length;
+
+        var sOpleidingen = ", \n ik volg de opleidingen ";
+        for (var i = 0; i < nOpleidingen; i++) {
+            sOpleidingen += this.opleidingen[i] + ",";
+        }
+
+        sOpleidingen += "mijn tutor is " + this.tutor;
+        alert(this.info() + sOpleidingen);
+    };
+
+    /* Instructeur class */
+
+    function Instructeur(naam, leeftijd, geslacht, vak, ancienniteit) {
+        // call superclass constuctor
+        Persoon.call(this, naam, leeftijd, geslacht);
+
+        this.vak = vak;
+        this.ancienniteit = ancienniteit;
+        this.salaris = this.basiswedde * ancienniteit / 10;
+    }
+
+    Instructeur.prototype = new Persoon();
+    Instructeur.prototype.basiswedde = 1600;
+    Instructeur.prototype.verhoogAncienniteit = function(jaar){
+        this.ancienniteit = this.ancienniteit + jaar;
+    };
+    Instructeur.prototype.spreek = function() {
+        var t = ",\n ik ben instructeur " + this.vak + ",\n mijn salaris is " + this.salaris;
+        alert(this.info() + t)
+    };
+
 
 </script>
 </body>
