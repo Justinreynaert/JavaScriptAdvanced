@@ -17,7 +17,7 @@ window.onload = function() {
     veelhoek.spreek();
     veelhoek.schrijf();
 
-    var driehoek = new Driehoek("Driehoekje", [12,12,15])
+    var driehoek = new Driehoek("Driehoekje", [12,12,15]);
 
     driehoek.spreek();
     driehoek.schrijf();
@@ -46,7 +46,8 @@ Vorm.prototype.spreek = function() {
 };
 
 Vorm.prototype.schrijf = function() {
-    document.getElementById('output').innerHTML = enumerate(this);
+
+    document.getElementById('output').innerHTML += enumerate(this);
 };
 
 Vorm.prototype.type = "Vorm";
@@ -75,7 +76,7 @@ Cirkel.prototype.spreek = function() {
     this.oppervlakte();
     this.omtrek();
     var strInfo = "Ik heb een straal van " + afronden(this.straal) + ", een oppervlakte van " + afronden(this.oppervlakte) + " een omtrek van " + afronden(this.omtrek);
-    alert(this.tekst + ",\n" + strInfo)
+    alert("Hallo ik ben " + this.naam + "\n" + this.tekst + ",\n" + strInfo)
 };
 
 
@@ -95,7 +96,7 @@ Veelhoek.prototype.tekst = "Ik ben een veelhoek";
 
 Veelhoek.prototype.spreek = function() {
     var strInfo = "Ik heb een " + this.aantalHoeken + " hoeken";
-    alert(this.tekst + ",\n" + strInfo)
+    alert("Hallo ik ben " + this.naam + "\n" + this.tekst + ",\n" + strInfo)
 };
 
 //** KLASSE DRIEHOEK ***//
@@ -124,10 +125,6 @@ Driehoek.prototype.omtrek = function() {
 Driehoek.prototype.oppervlakte = function() {
 
     nHaOmtrek = (this.omtrek / 2);
-    console.log(nOmtrek);
-    console.log(this.zijden[0]);
-    console.log(this.zijden[1]);
-    console.log(this.zijden[2]);
 
     var a = this.zijden[0];
     var b = this.zijden[1];
@@ -142,7 +139,7 @@ Driehoek.prototype.spreek = function() {
     this.omtrek();
     this.oppervlakte();
     var strInfo = "Ik heb een oppervlakte van " + afronden(this.oppervlakte) + " een omtrek van " + afronden(this.omtrek);
-    alert(this.tekst + ",\n" + strInfo)
+    alert("Hallo ik ben " + this.naam + "\n" + this.tekst + ",\n" + strInfo)
 };
 
 //** KLASSE VIERHOEK ***//
@@ -170,7 +167,7 @@ Vierhoek.prototype.spreek = function() {
     this.omtrek();
     this.oppervlakte();
     var strInfo = "Ik heb een oppervlakte van " + afronden(this.oppervlakte) + " een omtrek van " + afronden(this.omtrek);
-    alert(this.tekst + ",\n" + strInfo)
+    alert("Hallo ik ben " + this.naam + "\n" + this.tekst + ",\n" + strInfo)
 };
 
 //** KLASSE VIERKANT **/
@@ -198,11 +195,12 @@ Vierkant.prototype.spreek = function() {
     this.omtrek();
     this.oppervlakte();
     var strInfo = "Ik heb een oppervlakte van " + afronden(this.oppervlakte) + " een omtrek van " + afronden(this.omtrek);
-    alert(this.tekst + ",\n" + strInfo)
+    alert("Hallo ik ben " + this.naam + "\n" + this.tekst + ",\n" + strInfo)
 };
 
 
 /** algemene functies **/
+
 function enumerate(obj) {
     //overloop alle eigenschappen van een object
     // return string, voor console.log
