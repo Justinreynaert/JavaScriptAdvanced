@@ -19,7 +19,7 @@ window.onload = function() {
 
     let canvas = document.getElementById('weeruitslagen');
     let mijnBalk = new Balk(0,0,20,60);
-    mijnBalk.teken(canvas);
+
 
     aMaanden = [];
     aNeerslag = [];
@@ -35,6 +35,7 @@ window.onload = function() {
 
     let mijnLijn = new Lijn(20,20,aTemperaturen);
     mijnLijn.teken(canvas);
+
 
 };
 
