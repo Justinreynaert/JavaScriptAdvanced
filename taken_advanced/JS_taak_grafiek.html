@@ -13,27 +13,13 @@ code{
 	font: normal bold 1em "Courier New", Courier, monospace ;
 	color: darkblue;
 }
+
+canvas {
+  background-color: cyan;
+}
 -->
 </style>
-<script type="text/javascript">
-
-var weergegevens2009 = [
-	["temperatuur","neerslag"],
-	["jan",0.7,62.9],
-	["feb",3.6,57.1],
-	["mar",6.7,68.2],
-	["apr",12.5,47.1],
-	["mei",14.4,43.1],
-	["jun",16.6,64.5],
-	["jul",18.7,73.1],	
-	["aug",19.4,34.7],
-	["sep",15.8,29.1],
-	["okt",11.3,105],
-	["nov",9.7,98],
-	["dec",2.9,80.8]
-]
-
-</script>
+<script src="grafiek.js" type="text/javascript"></script>
 </head>
 <body>
 <h1>JS advanced taak: Grafiek</h1>
@@ -51,5 +37,6 @@ var weergegevens2009 = [
   <li>teken  op het canvas de neerslaghoeveelheden als blauw opgevulde balkjes en de temperaturen als  een rode lijn van  met elkaar verbonden punten</li>
   <li>doe dit met <b>constructors</b> om &quot;balk&quot; en &quot;lijn&quot; objecten te instanti&euml;ren. Probeer deze constructors zelf af te leiden van een <b>superClass</b> <i>Vorm</i> die een method <i>teken(</i>) die voor de echte weergave op het canvas zorgt. Deze method kan door de  subClasses (eventueel)  overschreven worden (override) </li>
 </ul>
+<canvas id="weeruitslagen" width="800px" height="800px"></canvas>
 </body>
 </html>
