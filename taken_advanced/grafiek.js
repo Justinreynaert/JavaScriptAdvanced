@@ -69,8 +69,8 @@ class Vorm {
     constructor(x,y) {
         this.x = x;
         this.y = y;
-        this.font = "Comic Sans MS";
-        this.kleur = "red";
+        this.font = "Arial";
+        this.kleur = "black";
         this.fontSize = 15;
         // top and bot marging
         this.marging = 50;
@@ -83,11 +83,13 @@ class Vorm {
         // tekent een raster
 
             let ctx = c.getContext('2d');
+
             let lines = 10;
-            let x = this.x;
             let y = c.height - this.marging;
             let inc = c.height / lines;
 
+
+            ctx.globalAlpha = 0.5;
             for (let i=0; i < lines; i++) {
                 ctx.strokeStyle = this.kleur;
                 ctx.beginPath();
@@ -97,10 +99,9 @@ class Vorm {
 
                 y = y - inc;
             }
+            ctx.globalAlpha = 1;
 
 
-
-            ctx.strokeStyle = this.kleur;
             ctx.beginPath();
             ctx.moveTo(this.marging, 0);
             ctx.lineTo(this.marging, c.height-this.marging);
