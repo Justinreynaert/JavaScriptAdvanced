@@ -15,6 +15,21 @@ let aaWeergegevens2009 = [
     ["dec",6,60]
 ];
 
+// array of array die gegevens bevat
+/*let aaWeergegevens2009 = [
+    ["temperatuur","neerslag"],
+    ["jan",29,1],
+    ["feb",3.6,2],
+    ["mar",6.7,3],
+    ["apr",12.5,4],
+    ["mei",14.4,5],
+    ["jun",16.6,6],
+    ["jul",18.7,7],
+    ["aug",19.4,8],
+    ["sep",15.8,9],
+    ["okt",11.3,10]
+];*/
+
 // start onload
 window.onload = function() {
 
@@ -34,13 +49,12 @@ window.onload = function() {
         aTemperaturen.push(aaWeergegevens2009[i][1]);
     }
 
-    console.log(aTemperaturen);
 
     //raster maken
 
     let raster = new Vorm(0,0);
 
-    raster.teken(eCanvas);
+    raster.teken(eCanvas, aNeerslag);
 
     // variabele die de blaken maakt
     let balken = new Balk(10, 0, 20, aNeerslag);
@@ -48,9 +62,10 @@ window.onload = function() {
     balken.teken(eCanvas);
 
     // variabele die de lijnen bevat
-    let mijnLijn = new Lijn(0,0,aTemperaturen);
+   let lijn = new Lijn(0,0,aTemperaturen);
     // tekenen van de lijnen
-    mijnLijn.teken(eCanvas);
+
+    //lijn.teken(eCanvas);
 
 
 
@@ -78,34 +93,43 @@ class Vorm {
 
 
     }
-    teken(c){
+    teken(c, aHoogste){
 
         // tekent een raster
 
-            let ctx = c.getContext('2d');
-
-            let lines = 10;
-            let y = c.height - this.marging;
-            let inc = c.height / lines;
-
-
-            ctx.globalAlpha = 0.5;
-            for (let i=0; i < lines; i++) {
-                ctx.strokeStyle = this.kleur;
-                ctx.beginPath();
-                ctx.moveTo(this.marging, y);
-                ctx.lineTo(c.width, y);
-                ctx.stroke();
-
-                y = y - inc;
-            }
-            ctx.globalAlpha = 1;
+        let ctx = c.getContext('2d');
+        let max = maxArray(aHoogste);
+        let drawArea = c.height - this.marging;
+        let aantalLijnen = 2;
 
 
-            ctx.beginPath();
-            ctx.moveTo(this.marging, 0);
-            ctx.lineTo(this.marging, c.height-this.marging);
+
+        // rechterlijn
+        ctx.globalAlpha=1;
+        ctx.lineWidth=1;
+        ctx.moveTo(this.marging, 0);
+        ctx.lineTo(this.marging, c.height-this.marging);
+
+
+
+        let y = c.height - this.marging;
+
+        // andere lijnen
+        for (let i=0; i < aantalLijnen; i++) {
+
+            ctx.moveTo(this.marging, y+1);
+            ctx.lineTo(c.width, y+1);
             ctx.stroke();
+
+            ctx.textAlign = "right";
+            ctx.fillText(round2Dec(i*(max/aantalLijnen)),this.marging -5, y);
+
+            y -= drawArea / aantalLijnen;
+        }
+
+
+
+
 
 
 
@@ -132,13 +156,15 @@ class Balk extends Vorm {
         // teken methode van de class balk - Tekent ALLE balken die getekent kunnen worden met gegevens uit de array
         let ctx =c.getContext('2d');
 
-        ctx.globalAlpha = 1;
 
         // lengte  van de array
         let arrLength = this.aHoogtes.length;
 
         // hoogtste waarde in de array -- eigen functie
         let max = maxArray(this.aHoogtes);
+
+        let verschil = round10(max)-max;
+        console.log(verschil);
 
 
         // loopt door de array
@@ -152,12 +178,12 @@ class Balk extends Vorm {
             // variabele breedte
             let width = this.width;
 
-            // hoogte = hoogte van arraywaarde * canvasbreedte / maxwaarde - y waarde
-            let height =this.aHoogtes[i]*(cBreedte/max)-this.y-marging*2;
+            let height = this.aHoogtes[i]*(c.height/max)*((cHoogte - marging)/cHoogte);
 
             // X = i * (canvasbreedte /
             let x = i*(cBreedte/arrLength) + ((cBreedte/arrLength) / 2) - (this.width / 2) +marging;
-            let y = this.y+cHoogte-height-marging;
+            //console.log(this.y);
+            let y = cHoogte - height - marging;
 
             ctx.fillStyle = "dodgerblue";
             ctx.fillRect(x,y,width,height);
@@ -171,17 +197,20 @@ class Balk extends Vorm {
             let fontY = y - 5;
 
 
-            if (fontY < 50) {
-                fontY = this.fontSize + 5;
+            if (fontY < 10) {
+                let font = this.fontSize + 5;
+                ctx.textAlign = "left";
+                ctx.fillText(this.aHoogtes[i].toString(),fontX, font);
+
+            } else {
+                ctx.textAlign = "left";
+                ctx.fillText(this.aHoogtes[i].toString(),fontX, fontY);
             }
 
 
-            ctx.textAlign = "left";
-            ctx.fillText(this.aHoogtes[i].toString(),fontX, fontY);
 
             fontY = fontY + height + this.fontSize/2 + marging/2  ;
-            ctx.fillText(this.maanden[i].toString(),fontX, fontY);
-
+            ctx.fillText(this.maanden[i],fontX, fontY);
         }
 
 
@@ -214,7 +243,7 @@ class Lijn extends Vorm {
 
         for(let i = 0; i<this.punten.length;i++) {
            let x = i * (cBreedte/this.punten.length) + ((cBreedte/this.punten.length) / 2) + marging;
-           let y = cHoogte - this.punten[i] - marging;
+           let y = cHoogte - marging  - this.punten[i];
 
            ctx.lineTo(x, y);
 
@@ -236,8 +265,30 @@ class Lijn extends Vorm {
     }
 }
 
+// HELPER FUNCTIONS
+
 function maxArray(array) {
+    // @array - Array met numbers
     // hoogste waarde in een arary
+    if (array.constructor === Array) {
     return Math.max.apply(Math, array);
+    }
+}
+
+function round10(x) {
+    // @x - een number
+    // returnde eerste waarde die deelbaar is door 10 en geen deelwaarde heeft
+    if (typeof x === 'number') {
+        return Math.ceil(x/10)*10;
+    }
+}
+
+
+function round2Dec(x) {
+    // @x - een number
+    // rond getal of op 2 decimalen
+    if (typeof x === 'number') {
+        return Math.round(x * 100) / 100;
+    }
 }
 
