@@ -4,7 +4,7 @@ let aaWeergegevens2009 = [
     ["jan",29,62.9],
     ["feb",3.6,57.1],
     ["mar",6.7,68.2],
-    ["apr",12.5,47.1],
+    ["apr",12.5,49],
     ["mei",14.4,43.1],
     ["jun",16.6,64.5],
     ["jul",18.7,73.1],
@@ -12,7 +12,7 @@ let aaWeergegevens2009 = [
     ["sep",15.8,29.1],
     ["okt",11.3,105],
     ["nov",9.7,98],
-    ["dec",6,60]
+    ["dec",6,60],
 ];
 
 // array of array die gegevens bevat
@@ -100,7 +100,9 @@ class Vorm {
         let ctx = c.getContext('2d');
         let max = maxArray(aHoogste);
         let drawArea = c.height - this.marging;
-        let aantalLijnen = 2;
+        let aantalLijnen = 10;
+        let verschil = round10(max)-max;
+        aantalLijnen = aantalLijnen + 1
 
 
 
@@ -124,7 +126,7 @@ class Vorm {
             ctx.textAlign = "right";
             ctx.fillText(round2Dec(i*(max/aantalLijnen)),this.marging -5, y);
 
-            y -= drawArea / aantalLijnen;
+            y -= (drawArea - verschil)/ aantalLijnen;
         }
 
 
@@ -178,7 +180,7 @@ class Balk extends Vorm {
             // variabele breedte
             let width = this.width;
 
-            let height = this.aHoogtes[i]*(c.height/max)*((cHoogte - marging)/cHoogte);
+            let height = this.aHoogtes[i]*(c.height/max)*((cHoogte - marging)/cHoogte)*((cHoogte-verschil)/cHoogte);
 
             // X = i * (canvasbreedte /
             let x = i*(cBreedte/arrLength) + ((cBreedte/arrLength) / 2) - (this.width / 2) +marging;
