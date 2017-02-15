@@ -20,6 +20,22 @@ div.warning {
 #berichten{display:none}
 -->
 </style>
+    <script type="text/javascript" src="nuttig_lib.js"></script>
+    <script type="text/javascript" src="cookiebank.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+
+            // JS Actief? verwijde NoJS
+            let noJS = document.getElementById('noJS');
+
+            if (noJS) {
+                noJS.parentNode.removeChild(noJS);
+            }
+
+            cookieBank.welkom();
+
+        }
+    </script>
 </head>
 <body>
 <h1>JS adv project: cookieBank Applicatie</h1>
