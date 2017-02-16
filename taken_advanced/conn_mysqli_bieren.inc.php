@@ -4,8 +4,8 @@
 // mysqli bieren connection 
 
 $host = "localhost";
-$dbUser = "web";
-$dbPassw = "web";
+$dbUser = "root";
+$dbPassw = "vdab";
 $dbName ="bieren";
 
 $db = new mysqli($host, $dbUser,$dbPassw, $dbName);
