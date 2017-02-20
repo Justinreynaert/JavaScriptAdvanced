@@ -13,7 +13,7 @@ class ajaxhandler {
             data: opties.data || ""
         };
 
-        console.log(opties.callback);
+        //console.log(opties.callback);
 
 
         //data volgens method
@@ -30,7 +30,7 @@ class ajaxhandler {
         let xhr = this.createXHRObject();
 
 
-        console.log(opties.url);
+        //console.log(opties.url);
 
 
         xhr.open(opties.method, opties.url, true);

@@ -5,6 +5,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Profiel pagina</title>
 <link rel="stylesheet"  type="text/css" href="profiel.css" />
+  <script type="text/javascript" src="json_parse.js"></script>
+  <script type="text/javascript" src="nuttig_lib.js"></script>
+  <script type="text/javascript" src="ajaxhandler.js"></script>
+
+  <script type="text/javascript" src="inline_edit.js"></script>
+
+  <script>
+    window.onload=function() {
+        makeOver.init();  // initialisatie makeOver
+        makeOver.laadProfiel();
+    }
+  </script>
+
 </head>
 <body>
 <div id="kopstrook">
@@ -16,22 +29,16 @@
 <p>Welkom op mijn profiel pagina. </p>
 <p>Mijn gegevens:</p>
 <div id="profiel">
-  <div class="foto"><img id="foto"  src="../images/profiel1.jpg" /></div>
-  <div><span class="label">voornaam:</span> <span class="profieldata" id="voornaam"  title="mijn voornaam">Jan</span> </div>
-  <div><span class="label">familienaam</span> <span class="profieldata" id="familienaam"  title="mijn familienaam" />Vandorpe</span></div>
-  <div><span class="label">tel:</span> <span class="profieldata" id="tel"  title="mijn vast telefoonnummer" />059551978</span> </div>
-  <div><span class="label">gsm:</span> <span class="profieldata" id="gsm"  title="mijn gsmnummer" />0499332211</span> </div>
-  <div><span class="label">email:</span> <span class="profieldata" id="email"  title="mijn gebruikersnaam (emailadres)" />openleren@skynet.be</span></div>
-  <div><span class="label">adres:</span> <span class="profieldata" id="adres"  title="mijn adres (straat + huisnr)" />Archimedesstraat 4-6</span></div>
-  <div><span class="label">postnr:</span> <span class="profieldata" id="postnr"  title="mijn postnr" />8400</span></div>
-  <div><span class="label">gemeente:</span> <span class="profieldata" id="gemeente"  title="mijn gemeente" />Oostende</span></div>
-  <div><span class="label">interesses:</span> <span class="profieldata" id="interesses"  title="mijn interesses" /> Ik heb een aantal hobbies, nl.<br />
-    <ul>
-      <li>succulenten kweken (cactussen en vetplanten)</li>
-      <li>fotografie</li>
-      <li>reizen</li>
-    </ul>
-    </span> </div>
+  <div class="foto"><img id="foto"  class="makeover profieldata" src="" /></div>
+  <div><span class="label">voornaam:</span> <span class="profieldata makeover" id="voornaam"  title="mijn voornaam"></span> </div>
+  <div><span class="label">familienaam</span> <span class="profieldata makeover" id="familienaam"  title="mijn familienaam" /></span></div>
+  <div><span class="label">tel:</span> <span class="profieldata makeover" id="tel"  title="mijn vast telefoonnummer" /></span> </div>
+  <div><span class="label">gsm:</span> <span class="profieldata makeover" id="gsm"  title="mijn gsmnummer" /></span> </div>
+  <div><span class="label">email:</span> <span class="profieldata makeover" id="email"  title="mijn gebruikersnaam (emailadres)" /></span></div>
+  <div><span class="label">adres:</span> <span class="profieldata makeover" id="adres"  title="mijn adres (straat + huisnr)" /></span></div>
+  <div><span class="label">postnr:</span> <span class="profieldata makeover" id="postnr"  title="mijn postnr" /></span></div>
+  <div><span class="label">gemeente:</span> <span class="profieldata makeover" id="gemeente"  title="mijn gemeente" /></span></div>
+  <div><span class="label">interesses:</span> <span class="profieldata makeover" id="interesses"  title="mijn interesses" /></span> </div>
   <!--einde profiel--> 
 </div>
 <!--einde midden-->

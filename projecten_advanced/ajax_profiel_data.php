@@ -3,6 +3,7 @@
 ajax_profile_data.php
 nodig voor JS adv project profiel.html
 db gegevens voor http en XHR request 
+naar db PROFIELEN table PROFIEL
 */
 
 
@@ -41,8 +42,8 @@ class PersoneelManager {
 	public function getAlleGegevens(){
 		//returns array
 		$lijst = array();
-		$dbh = new PDO("mysql:host=localhost;dbname=personeel","web","web");
-		$rs = $dbh->query("select * from personeel");
+		$dbh = new PDO("mysql:host=localhost;dbname=profielen","web","web");
+		$rs = $dbh->query("select * from profiel");
 		
 		foreach($rs as $rij){
 			$gegevens = $rij["voornaam"] . ", " . $rij["familienaam"];
@@ -56,8 +57,8 @@ class PersoneelManager {
 		//return als JSON string
 		$jsonArray = array();
 		
-		$dbh 		= new PDO("mysql:host=localhost;dbname=personeel","web","web");
-		$sql 		= "select * from personeel WHERE idpersoneel=".$id;
+		$dbh = new PDO("mysql:host=localhost;dbname=profielen","web","web");
+		$sql 		= "select * from profiel WHERE idpersoon=".$id;
 		$rs 		= $dbh->query($sql);
 		$result 	= $rs->fetch(PDO::FETCH_ASSOC);
 		$colcount 	= $rs->columnCount();
@@ -75,8 +76,8 @@ class PersoneelManager {
 		}
 	public function getVeld($id,$veld){
 		//leest en returned de inhoud van 1 veld
-		$dbh = new PDO("mysql:host=localhost;dbname=personeel","web","web");
-		$sql = "select ". $veld . " from personeel where idpersoneel=" . $id;
+		$dbh = new PDO("mysql:host=localhost;dbname=profielen","web","web");
+		$sql = "select ". $veld . " from profiel where idpersoon=" . $id;
 		//print $sql;
 		$rs = $dbh->query($sql);
 		
@@ -89,8 +90,8 @@ class PersoneelManager {
 		
 	public function putVeld($id,$veld,$inh){
 		//schrijft de inhoud van 1 veld
-		$dbh = new PDO("mysql:host=localhost;dbname=personeel","web","web");
-		$sql = "UPDATE personeel SET ". $veld . "='" . $inh .  "' WHERE idpersoneel=" . $id;
+		$dbh = new PDO("mysql:host=localhost;dbname=profielen","web","web");
+		$sql = "UPDATE profiel SET ". $veld . "='" . $inh .  "' WHERE idpersoon=" . $id;
 		print $sql;
 		$dbh->exec($sql);
 		
