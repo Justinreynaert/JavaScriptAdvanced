@@ -77,7 +77,7 @@ let makeOver = function() {
             let posLaatsteSlash = source.lastIndexOf("/");
             let bestand = source.substring(posLaatsteSlash);
 
-            console.log(bestand);
+            //console.log(bestand);
 
 
             //inhoud toevoegen aan editStapel om te kunnen herstellen
@@ -88,7 +88,7 @@ let makeOver = function() {
                 "orig_id":el_orig_id
             };
 
-            console.log(editStapel);
+            //console.log(editStapel);
 
             let editBox_type = (t_l>50)?"textArea":"input";
             let editBoxOptions = {
@@ -282,8 +282,10 @@ let makeOver = function() {
             method: "GET",
             data: params,
             callback: {
-                success: function(responseXML, responseText) {
-                    successFunctie(responseXML, element);
+                success: function(responseText) {
+                    if (responseText) {
+                      successFunctie(responseText, element);
+                    }
                 },
                 failure: function(statusCode) {
                     alert('Fout: ' + statusCode)
@@ -300,6 +302,7 @@ let makeOver = function() {
         dependency nuttig_lib.js, json_parse
         @JSON verplicht, JSON object
          */
+
 
         let persoon = JSON.parse(JSOON); // Json_parse.js
         let profiel = document.getElementById('profiel');
@@ -343,11 +346,11 @@ let makeOver = function() {
         },
 
         restore: function() {
-            console.log('makeOver.restore: ' + this.id)
+            console.log('makeOver.restore: ' + this.id);
             saveRestore(this, "restore");
         },
 
-        laadProfiel:function(params, successFunctie,element){
+        laadProfiel: function(){
             ajaxCall("actie=lees&idpers=1&veld=alle", verwerkProfielGegevens, null);
         }
 

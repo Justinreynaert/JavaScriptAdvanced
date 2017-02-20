@@ -13,7 +13,7 @@ class ajaxhandler {
             data: opties.data || ""
         };
 
-        console.log(opties.callback);
+        //console.log(opties.callback);
 
 
         //data volgens method
@@ -30,14 +30,14 @@ class ajaxhandler {
         let xhr = this.createXHRObject();
 
 
-        console.log(opties.url);
+        //console.log(opties.url);
 
 
         xhr.open(opties.method, opties.url, true);
         xhr.onreadystatechange = function() {
             if(xhr.readyState!==4)return;
             if(xhr.status>=200 && xhr.status<300) {
-                opties.callback.success(xhr.responseXML,xhr.responseText);
+                opties.callback.success(xhr.responseText,xhr.responseXML);
 
             } else {
                 opties.callback.failure(xhr.status);
