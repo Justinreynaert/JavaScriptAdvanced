@@ -49,22 +49,31 @@ td, th {
 -->
 </style>
 </head>
+<script type="text/javascript" src="../projecten_advanced/nuttig_lib.js"></script>
 <script type="text/javascript">
 var origineel = [
 				 ["Adinda",45,"Journalist"],
 				 ["Inge",42,"Ingenieur"],
-				 ["Jean",66,"Directeur"],
+                  ["Inge",42,"Ingenieur"],
 				 ["Jan",22,"Werkzoekend"]				 
-				]
+				];
 
 window.onload = function(){
 	
 	divOutput = document.getElementById('output');
 	
-	var str = "<h2>origineel</h2>" + toonArray(origineel);
+	var str = "<h2>origineel</h2>" + toonArray(origineel) +"<br>" +toonArray(origineel.transpose());
 	
 	divOutput.innerHTML = str;
-}
+
+    console.log(origineel);
+
+    test = origineel.transpose();
+
+    console.log(test);
+
+
+};
 
 //===================================================
 function toonArray(arr){
@@ -88,6 +97,7 @@ return str;
 }
 
 </script>
+
 <body
 <h1>JS advanced taak:  Array Augmentation</h1>
 <p>Een taak over <i>augmentation</i> van het <b>Array</b> object</p>
