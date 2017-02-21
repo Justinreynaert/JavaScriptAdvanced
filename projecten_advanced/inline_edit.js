@@ -225,6 +225,7 @@ let makeOver = function() {
             switch (actie) {
                 case "save":
                     el[hoe] = wat_gewijzigd;
+                    bewaarGegevens(orig_id,editValue);
                     break;
                 case "restore":
                     el[hoe] = wat_orig;
@@ -320,6 +321,20 @@ let makeOver = function() {
             }
         }
 
+    }
+
+    function bewaarGegevens(veld,waarde){
+        /*
+        vult gegevens uit ajaxcall voor alle editeerbare velden
+        @veld verplicht, naam (id) van het veld
+        @waarde verplicht, te updaten waarde van het veld
+         */
+
+        ajaxCall("actie=schrijf&veld="+veld+"&inh="+waarde+"&idpers=1",debugOK,null);
+    }
+
+    function debugOK(str) {
+        //console.log("bewaarGegevens call, de Response is:" + str) ;
     }
 
 

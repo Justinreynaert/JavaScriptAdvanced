@@ -319,3 +319,53 @@ Element.prototype.cssKlasse = function(actie, cssClass) {
     }
 
 };
+
+Array.prototype.transpose = function() {
+    /* maakt van rijen kollommen en kollommen van rijen 2d array
+     @array = 2 dimensionale array;
+     */
+
+    // controle als het een 2dimensionele array is
+    for (let i=0;i<this.length;i++) {
+        if(this[i].constructor === Array) {
+            console.log("ja");
+        } else {
+            return console.log("Array niet multidimensioneel, code afgebroken");
+        }
+    }
+
+
+    // breedte
+    let b = this.length;
+
+    // hoogte
+    let h =  this[0].length;
+
+
+    // output array
+    t = [];
+
+
+    for (let i = 0; i < h; i++) {
+
+
+        t[i] = [];
+
+
+        for (let j = 0; j < b; j++) {
+
+
+            t[i][j] = this[j][i];
+        }
+    }
+
+    return t;
+
+    /*for (let i = 0; i<this.length;i++) {
+        console.log(this[i][0]);
+
+
+    }*/
+
+
+};
